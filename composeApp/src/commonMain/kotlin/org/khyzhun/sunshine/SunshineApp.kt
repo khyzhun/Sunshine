@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.khyzhun.sunshine.presentation.WeatherPage
+import org.khyzhun.sunshine.presentation.WeatherScreen
 import org.khyzhun.sunshine.presentation.WeatherViewModel
 import org.khyzhun.sunshine.theme.AppTheme
 
@@ -13,7 +13,7 @@ import org.khyzhun.sunshine.theme.AppTheme
 fun SunshineApp() {
     AppTheme {
         val mainViewModel = getViewModel(Unit, viewModelFactory { WeatherViewModel() })
-        WeatherPage(mainViewModel)
+        WeatherScreen(mainViewModel)
     }
 }
 

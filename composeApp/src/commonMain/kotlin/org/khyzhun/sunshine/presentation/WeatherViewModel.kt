@@ -15,18 +15,18 @@ class WeatherViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val httpClient = HttpClient {
-        install(ContentNegotiation) {
-            json()
-        }
-    }
+//    private val httpClient = HttpClient {
+//        install(ContentNegotiation) {
+//            json()
+//        }
+//    }
 
     init {
         loadWeatherForecast()
     }
 
     override fun onCleared() {
-        httpClient.close()
+//        httpClient.close()
     }
 
     private fun loadWeatherForecast() {
