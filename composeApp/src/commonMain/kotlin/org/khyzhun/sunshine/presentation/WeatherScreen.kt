@@ -1,5 +1,6 @@
 package org.khyzhun.sunshine.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
+import sunshine.composeapp.generated.resources.Res
+import sunshine.composeapp.generated.resources.allDrawableResources
+import sunshine.composeapp.generated.resources.compose_multiplatform
+import sunshine.composeapp.generated.resources.ic_sunny
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
@@ -106,11 +114,10 @@ fun TopBar() {
 
 @Composable
 fun SunIcon() {
-    Icon(
-        imageVector = Icons.Default.Add,
+    Image(
+        painter = painterResource(Res.drawable.ic_sunny),
         contentDescription = "Sun Icon",
-        modifier = Modifier.size(100.dp),
-        tint = Color(0xFFFFC107)
+        modifier = Modifier.size(100.dp)
     )
 }
 
