@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="partly_cloudy">Partly cloudy</string>
+    <string name="rain_thunder">Rain with thunder</string>
+    <string name="rainy">Rainy</string>
+    <string name="snowy">Snowy</string>
+    <string name="sunny">Sunny</string>
+</resources>
