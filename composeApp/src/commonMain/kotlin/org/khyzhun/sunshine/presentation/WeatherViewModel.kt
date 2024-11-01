@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.khyzhun.sunshine.model.Forecast
+import org.khyzhun.sunshine.model.WeatherState
 
 class WeatherViewModel : ViewModel() {
 
@@ -33,7 +35,17 @@ class WeatherViewModel : ViewModel() {
         viewModelScope.launch {
             val weatherForecast = getWeatherForecast()
             _uiState.update {
-                it.copy(title = weatherForecast.title)
+                it.copy(
+                    city = "San Francisco",
+                    icon = WeatherState.Sunny,
+                    description = "Clear skies",
+                    temperature = 22,
+                    forecast = listOf(
+                        Forecast("Today", 22, 14, WeatherState.Sunny),
+                        Forecast("Monday", 20, 12, WeatherState.Sunny),
+                        Forecast("Thursday", 19, 10, WeatherState.Sunny),
+                    ),
+                )
             }
         }
     }

@@ -5,4 +5,7 @@
     <string name="rainy">Rainy</string>
     <string name="snowy">Snowy</string>
     <string name="sunny">Sunny</string>
+
+
+    <string name="placeholder_degrees">%1$d°</string>
 </resources>

@@ -1,10 +1,12 @@
 package org.khyzhun.sunshine.presentation
 
+import org.khyzhun.sunshine.model.Forecast
+import org.khyzhun.sunshine.model.WeatherState
+
 data class WeatherUiState(
-    val title: String = "",
+    val city: String = "",
+    val icon: WeatherState = WeatherState.None,
     val description: String = "",
-    val icon: String = "",
-    val degrees: String = "",
-    val wind: String = "",
-    val humidity: String = "",
+    val temperature: Int = 0,
+    val forecast: List<Forecast> = emptyList(),
 )

@@ -4,18 +4,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,10 +29,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.khyzhun.sunshine.model.Forecast
+import org.khyzhun.sunshine.model.WeatherState
 import org.khyzhun.sunshine.theme.AppColors
+import org.khyzhun.sunshine.utils.getWeatherIcon
+import org.khyzhun.sunshine.utils.getWeatherTitle
 import sunshine.composeapp.generated.resources.Res
-import sunshine.composeapp.generated.resources.ic_sunny
-import sunshine.composeapp.generated.resources.sunny
+import sunshine.composeapp.generated.resources.placeholder_degrees
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
@@ -42,86 +46,115 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             .fillMaxSize()
             .background(AppColors.SunnyBackground)
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        TopBar()
+        TopBar(city = uiState.city)
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        SunIcon()
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = "22°",
-            fontSize = 64.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
+        TodayDetails(
+            weather = WeatherState.Sunny,
+            temperature = uiState.temperature
         )
 
-        Text(
-            text = stringResource(Res.string.sunny),
-            fontSize = 24.sp,
-            color = Color.White
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "22/14°",
-            fontSize = 18.sp,
-            color = Color.White
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        WeatherForecast(day = "Today", temperature = "22/14", icon = "☀️")
-        WeatherForecast(day = "Monday", temperature = "20/12", icon = "☁️")
-        WeatherForecast(day = "Thursday", temperature = "19/10", icon = "🌧️")
+        ForecastFor3Days(forecasts = uiState.forecast)
     }
 }
 
 @Composable
-fun TopBar() {
+private fun TopBar(city: String) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                text = "NEW YORK",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
-            Icon(
-                imageVector = Icons.Default.LocationOn,
-                contentDescription = "Location",
-                tint = Color.White,
-                modifier = Modifier.size(20.dp)
-            )
-        }
+        LocationRow(city)
+        SettingsIcon()
+    }
+}
+
+@Composable
+private fun LocationRow(city: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = city,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
         Icon(
-            imageVector = Icons.Default.MoreVert,
-            contentDescription = "Settings",
-            tint = Color.White
+            imageVector = Icons.Default.LocationOn,
+            contentDescription = "Location",
+            tint = Color.White,
+            modifier = Modifier.size(20.dp)
         )
     }
 }
 
 @Composable
-fun SunIcon() {
-    Image(
-        painter = painterResource(Res.drawable.ic_sunny),
-        contentDescription = "Sun Icon",
-        modifier = Modifier.size(100.dp)
+private fun SettingsIcon() {
+    Icon(
+        imageVector = Icons.Default.Settings,
+        contentDescription = "Settings",
+        tint = Color.White,
+        modifier = Modifier.size(20.dp)
     )
 }
 
 @Composable
-fun WeatherForecast(day: String, temperature: String, icon: String) {
+private fun TodayDetails(weather: WeatherState, temperature: Int) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+    ) {
+        LargeWeatherIcon(weather)
+        Text(
+            text = stringResource(getWeatherTitle(weather)),
+            fontSize = 64.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+        Text(
+            text = stringResource(Res.string.placeholder_degrees, temperature),
+            fontSize = 64.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+    }
+}
+
+@Composable
+private fun LargeWeatherIcon(weather: WeatherState) {
+    Image(
+        painter = painterResource(getWeatherIcon(weather)),
+        contentDescription = "Sun Icon",
+        modifier = Modifier.size(250.dp)
+    )
+}
+
+@Composable
+private fun ForecastFor3Days(forecasts: List<Forecast>) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = 8.dp)
+    ) {
+        items(forecasts) { forecast ->
+            WeatherForecast(
+                day = forecast.day,
+                temperatureMax = forecast.temperatureMax,
+                temperatureMin = forecast.temperatureMin,
+                icon = forecast.icon
+            )
+        }
+    }
+}
+
+@Composable
+private fun WeatherForecast(
+    day: String,
+    temperatureMax: Int,
+    temperatureMin: Int,
+    icon: WeatherState
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -129,9 +162,10 @@ fun WeatherForecast(day: String, temperature: String, icon: String) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = icon,
-            fontSize = 24.sp
+        Image(
+            painter = painterResource(getWeatherIcon(icon)),
+            contentDescription = "Sun Icon",
+            modifier = Modifier.size(36.dp)
         )
         Text(
             text = day,
@@ -139,10 +173,12 @@ fun WeatherForecast(day: String, temperature: String, icon: String) {
             color = Color.White
         )
         Text(
-            text = temperature,
+            text = "$temperatureMax/$temperatureMin°",
             fontSize = 18.sp,
             color = Color.White,
             textAlign = TextAlign.End
         )
     }
 }
+
+
