@@ -30,13 +30,13 @@ kotlin {
     }
     
     sourceSets {
-
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,12 +48,13 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
-            // mines:
-            implementation(libs.ktor.client.core)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.ktor.client.core)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
 
             api(libs.mvvm.core)
             api(libs.mvvm.compose)

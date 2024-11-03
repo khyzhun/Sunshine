@@ -1,0 +1,26 @@
+{
+    "city": "Uzhhorod",
+    "icon": "https://raw.githubusercontent.com/khyzhun/Sunshine-KMP/refs/heads/master/images/ic_partly_cloudy.png",
+    "description": "clear sky",
+    "temperature": 25,
+    "forecast": [
+      {
+        "day":  "02-11-2024",
+        "temperatureMax": "22",
+        "temperatureMin":  "18",
+        "icon": "https://raw.githubusercontent.com/khyzhun/Sunshine-KMP/refs/heads/master/images/ic_partly_cloudy.png"
+      },
+      {
+        "day":  "03-11-2024",
+        "temperatureMax": "20",
+        "temperatureMin":  "16",
+        "icon": "https://raw.githubusercontent.com/khyzhun/Sunshine-KMP/refs/heads/master/images/ic_partly_cloudy.png"
+      },
+      {
+        "day":  "04-11-2024",
+        "temperatureMax": "19",
+        "temperatureMin":  "15",
+        "icon": "https://raw.githubusercontent.com/khyzhun/Sunshine-KMP/refs/heads/master/images/ic_partly_cloudy.png"
+      }
+    ]
+}

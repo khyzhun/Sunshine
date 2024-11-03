@@ -23,10 +23,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.rememberAsyncImagePainter
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.khyzhun.sunshine.model.Forecast
@@ -52,7 +54,8 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         TopBar(city = uiState.city)
 
         TodayDetails(
-            weather = WeatherState.Sunny,
+            icon = uiState.icon,
+            description = uiState.description,
             temperature = uiState.temperature
         )
 
@@ -101,14 +104,15 @@ private fun SettingsIcon() {
 }
 
 @Composable
-private fun TodayDetails(weather: WeatherState, temperature: Int) {
+private fun TodayDetails(icon: String, temperature: Int, description: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
-        LargeWeatherIcon(weather)
+        LargeWeatherIcon(icon)
+
         Text(
-            text = stringResource(getWeatherTitle(weather)),
+            text = description,
             fontSize = 64.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
@@ -123,11 +127,12 @@ private fun TodayDetails(weather: WeatherState, temperature: Int) {
 }
 
 @Composable
-private fun LargeWeatherIcon(weather: WeatherState) {
+private fun LargeWeatherIcon(icon: String) {
     Image(
-        painter = painterResource(getWeatherIcon(weather)),
+        painter = rememberAsyncImagePainter(icon),
         contentDescription = "Sun Icon",
-        modifier = Modifier.size(250.dp)
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.size(150.dp)
     )
 }
 
@@ -153,7 +158,7 @@ private fun WeatherForecast(
     day: String,
     temperatureMax: Int,
     temperatureMin: Int,
-    icon: WeatherState
+    icon: String
 ) {
     Row(
         modifier = Modifier
@@ -163,7 +168,7 @@ private fun WeatherForecast(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(getWeatherIcon(icon)),
+            painter = rememberAsyncImagePainter(icon),
             contentDescription = "Sun Icon",
             modifier = Modifier.size(36.dp)
         )
