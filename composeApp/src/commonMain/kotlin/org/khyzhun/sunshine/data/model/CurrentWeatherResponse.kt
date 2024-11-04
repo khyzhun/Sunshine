@@ -1,5 +1,8 @@
 package org.khyzhun.sunshine.data.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 class CurrentWeatherResponse(
     val city: String? = null,
     val icon: String? = null,
