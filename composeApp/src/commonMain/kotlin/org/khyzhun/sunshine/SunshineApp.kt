@@ -10,7 +10,7 @@ import org.khyzhun.sunshine.theme.AppTheme
 
 @Composable
 @Preview
-fun SunshineApp() {
+fun SunshineAppView() {
     AppTheme {
         val mainViewModel = getViewModel(Unit, viewModelFactory { WeatherViewModel() })
         WeatherScreen(mainViewModel)
@@ -18,3 +18,5 @@ fun SunshineApp() {
 }
 
 expect fun getPlatformName(): String
+
+expect fun setupLogger()

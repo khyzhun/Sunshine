@@ -60,6 +60,8 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
 
+            implementation(libs.napier)
+
             api(libs.mvvm.core)
             api(libs.mvvm.compose)
         }

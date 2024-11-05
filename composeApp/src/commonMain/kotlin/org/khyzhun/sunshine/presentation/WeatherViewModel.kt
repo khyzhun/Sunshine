@@ -1,6 +1,7 @@
 package org.khyzhun.sunshine.presentation
 
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -37,6 +38,7 @@ class WeatherViewModel : ViewModel() {
     }
 
     init {
+        Napier.d("WeatherViewModel init")
         loadWeatherForecast()
     }
 
