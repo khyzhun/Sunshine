@@ -62,6 +62,8 @@ kotlin {
 
             implementation(libs.napier)
 
+            implementation(libs.kamel.image.default)
+
             api(libs.mvvm.core)
             api(libs.mvvm.compose)
         }

@@ -26,18 +26,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
-import org.jetbrains.compose.resources.painterResource
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.stringResource
 import org.khyzhun.sunshine.model.Forecast
-import org.khyzhun.sunshine.model.WeatherState
 import org.khyzhun.sunshine.theme.AppColors
-import org.khyzhun.sunshine.utils.getWeatherIcon
-import org.khyzhun.sunshine.utils.getWeatherTitle
 import sunshine.composeapp.generated.resources.Res
 import sunshine.composeapp.generated.resources.placeholder_degrees
+import sunshine.composeapp.generated.resources.placeholder_degrees_max_min
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
@@ -109,30 +109,44 @@ private fun TodayDetails(icon: String, temperature: Int, description: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
-        LargeWeatherIcon(icon)
-
-        Text(
-            text = description,
-            fontSize = 64.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
-        Text(
-            text = stringResource(Res.string.placeholder_degrees, temperature),
-            fontSize = 64.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
+        WeatherIcon(icon, 150.dp)
+        WeatherDescription(description)
+        WeatherDegrees(temperature)
     }
 }
 
 @Composable
-private fun LargeWeatherIcon(icon: String) {
-    Image(
-        painter = rememberAsyncImagePainter(icon),
-        contentDescription = "Sun Icon",
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.size(150.dp)
+private fun WeatherIcon(icon: String, size: Dp) {
+    KamelImage(
+        resource = { asyncPainterResource(data = icon) },
+        contentDescription = "Weather large icon",
+        modifier = Modifier.size(size)
+    )
+//    Image(
+//        painter = rememberAsyncImagePainter(icon),
+//        contentDescription = "Weather large icon",
+//        contentScale = ContentScale.Crop,
+//        modifier = Modifier.size(size)
+//    )
+}
+
+@Composable
+private fun WeatherDescription(description: String) {
+    Text(
+        text = description,
+        fontSize = 64.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.White
+    )
+}
+
+@Composable
+private fun WeatherDegrees(temperature: Int) {
+    Text(
+        text = stringResource(Res.string.placeholder_degrees, temperature),
+        fontSize = 64.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.White
     )
 }
 
@@ -165,25 +179,38 @@ private fun WeatherForecast(
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Image(
-            painter = rememberAsyncImagePainter(icon),
-            contentDescription = "Sun Icon",
-            modifier = Modifier.size(36.dp)
-        )
-        Text(
-            text = day,
-            fontSize = 18.sp,
-            color = Color.White
-        )
-        Text(
-            text = "$temperatureMax/$temperatureMin°",
-            fontSize = 18.sp,
-            color = Color.White,
-            textAlign = TextAlign.End
-        )
+        WeatherIcon(icon, 36.dp)
+        WeatherForecastDay(day)
+        WeatherForecastMaxMin(temperatureMax, temperatureMin)
     }
+}
+
+@Composable
+private fun WeatherForecastDay(day: String) {
+    Text(
+        text = day,
+        fontSize = 18.sp,
+        color = Color.White
+    )
+}
+
+@Composable
+private fun WeatherForecastMaxMin(
+    temperatureMax: Int,
+    temperatureMin: Int
+) {
+    Text(
+        text = stringResource(
+            Res.string.placeholder_degrees_max_min,
+            temperatureMax,
+            temperatureMin
+        ),
+        fontSize = 18.sp,
+        color = Color.White,
+        textAlign = TextAlign.End
+    )
 }
 
 

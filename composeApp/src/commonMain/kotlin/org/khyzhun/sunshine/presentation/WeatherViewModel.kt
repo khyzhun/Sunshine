@@ -38,7 +38,6 @@ class WeatherViewModel : ViewModel() {
     }
 
     init {
-        Napier.d("WeatherViewModel init")
         loadWeatherForecast()
     }
 
@@ -49,7 +48,6 @@ class WeatherViewModel : ViewModel() {
     private fun loadWeatherForecast() {
         viewModelScope.launch {
             val weatherForecast = getWeatherForecast()
-
             _uiState.update {
                 it.copy(
                     city = weatherForecast.city.toString(),
