@@ -1,7 +1,6 @@
-package org.khyzhun.sunshine.presentation
+package org.khyzhun.sunshine.presentation.weather
 
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.khyzhun.sunshine.data.model.CurrentWeatherResponse
-import org.khyzhun.sunshine.model.Forecast
+import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
 
 class WeatherViewModel : ViewModel() {
 
@@ -55,7 +54,7 @@ class WeatherViewModel : ViewModel() {
                     description = weatherForecast.description.toString(),
                     temperature = weatherForecast.temperature ?: 0,
                     forecast = weatherForecast.forecast?.map { forecast ->
-                        Forecast(
+                        ForecastWeatherDomain(
                             icon = forecast?.icon.toString(),
                             day = forecast?.day.toString(),
                             temperatureMax = forecast?.temperatureMax ?: 0,

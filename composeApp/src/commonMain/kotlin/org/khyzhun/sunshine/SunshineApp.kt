@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.khyzhun.sunshine.presentation.WeatherScreen
-import org.khyzhun.sunshine.presentation.WeatherViewModel
-import org.khyzhun.sunshine.theme.AppTheme
+import org.khyzhun.sunshine.presentation.weather.WeatherScreen
+import org.khyzhun.sunshine.presentation.weather.WeatherViewModel
+import org.khyzhun.sunshine.core.theme.AppTheme
 
 @Composable
 @Preview

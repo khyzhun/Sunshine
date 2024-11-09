@@ -1,6 +1,6 @@
-package org.khyzhun.sunshine.model
+package org.khyzhun.sunshine.domain.model
 
-data class Forecast(
+data class ForecastWeatherDomain(
     val day: String,
     val temperatureMax: Int,
     val temperatureMin: Int,

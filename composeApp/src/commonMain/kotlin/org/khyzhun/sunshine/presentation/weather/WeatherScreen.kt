@@ -1,6 +1,5 @@
-package org.khyzhun.sunshine.presentation
+package org.khyzhun.sunshine.presentation.weather
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,18 +22,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.rememberAsyncImagePainter
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.stringResource
-import org.khyzhun.sunshine.model.Forecast
-import org.khyzhun.sunshine.theme.AppColors
+import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
+import org.khyzhun.sunshine.core.theme.AppColors
+import org.khyzhun.sunshine.utils.DateUtils
 import sunshine.composeapp.generated.resources.Res
 import sunshine.composeapp.generated.resources.placeholder_degrees
 import sunshine.composeapp.generated.resources.placeholder_degrees_max_min
@@ -151,7 +149,7 @@ private fun WeatherDegrees(temperature: Int) {
 }
 
 @Composable
-private fun ForecastFor3Days(forecasts: List<Forecast>) {
+private fun ForecastFor3Days(forecasts: List<ForecastWeatherDomain>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(vertical = 8.dp)
@@ -190,7 +188,7 @@ private fun WeatherForecast(
 @Composable
 private fun WeatherForecastDay(day: String) {
     Text(
-        text = day,
+        text = DateUtils.getDayOfWeek(day),
         fontSize = 18.sp,
         color = Color.White
     )

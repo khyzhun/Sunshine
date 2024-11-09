@@ -1,4 +1,4 @@
-package org.khyzhun.sunshine.theme
+package org.khyzhun.sunshine.core.theme
 
 import androidx.compose.ui.graphics.Color
 

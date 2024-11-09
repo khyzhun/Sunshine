@@ -50,6 +50,7 @@ kotlin {
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
 
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)
@@ -98,6 +99,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.core.i18n)
     debugImplementation(compose.uiTooling)
 }
 
