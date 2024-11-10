@@ -1,14 +1,19 @@
-package org.khyzhun.sunshine.presentation.weather
+package org.khyzhun.sunshine.presentation.weather.weather
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
@@ -17,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,6 +36,10 @@ import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.stringResource
+import org.khyzhun.sunshine.SunshineAppView
+import org.khyzhun.sunshine.core.base.BaseContentLayout
+import org.khyzhun.sunshine.core.base.common.events.UiEvent
+import org.khyzhun.sunshine.core.base.components.ToolbarPadding
 import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
 import org.khyzhun.sunshine.core.theme.AppColors
 import org.khyzhun.sunshine.utils.DateUtils
@@ -38,38 +48,76 @@ import sunshine.composeapp.generated.resources.placeholder_degrees
 import sunshine.composeapp.generated.resources.placeholder_degrees_max_min
 
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel) {
-    val uiState by viewModel.uiState.collectAsState()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppColors.SunnyBackground)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
-    ) {
-        TopBar(city = uiState.city)
-
-        TodayDetails(
-            icon = uiState.icon,
-            description = uiState.description,
-            temperature = uiState.temperature
+fun WeatherScreen(
+    viewModel: WeatherViewModel,
+    onNavigateToSettings: () -> Unit,
+) {
+    LaunchedEffect(key1 = Unit) {
+        viewModel.handleUiEvent(
+            WeatherUiEvent.LoadScreenData
         )
+    }
 
-        ForecastFor3Days(forecasts = uiState.forecast)
+    BaseContentLayout(
+        viewModel = viewModel,
+        onBackPressed = {},
+    ) { uiState ->
+        uiState?.let {
+            WeatherScreenContent(
+                viewModel = viewModel,
+                state = it,
+                event = viewModel::handleUiEvent,
+                onNavigateToSettings = onNavigateToSettings
+            )
+        }
     }
 }
 
 @Composable
-private fun TopBar(city: String) {
+fun WeatherScreenContent(
+    viewModel: WeatherViewModel,
+    state: WeatherUiState,
+    event: (WeatherUiEvent) -> Unit,
+    onNavigateToSettings: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppColors.SunnyBackground)
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+
+        ToolbarPadding()
+
+        TopBar(
+            city = state.city,
+            onNavigateToSettings = onNavigateToSettings
+        )
+
+        TodayDetails(
+            icon = state.icon,
+            description = state.description,
+            temperature = state.temperature
+        )
+
+        ForecastFor3Days(forecasts = state.forecast)
+    }
+}
+
+@Composable
+private fun TopBar(
+    city: String,
+    onNavigateToSettings: () -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         LocationRow(city)
-        SettingsIcon()
+        SettingsIcon(onNavigateToSettings)
     }
 }
 
@@ -92,12 +140,16 @@ private fun LocationRow(city: String) {
 }
 
 @Composable
-private fun SettingsIcon() {
+private fun SettingsIcon(
+    onNavigateToSettings: () -> Unit,
+) {
     Icon(
         imageVector = Icons.Default.Settings,
         contentDescription = "Settings",
         tint = Color.White,
-        modifier = Modifier.size(20.dp)
+        modifier = Modifier.size(20.dp).clickable {
+            onNavigateToSettings.invoke()
+        }
     )
 }
 
@@ -107,6 +159,7 @@ private fun TodayDetails(icon: String, temperature: Int, description: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
+        Spacer(modifier = Modifier.size(50.dp))
         WeatherIcon(icon, 150.dp)
         WeatherDescription(description)
         WeatherDegrees(temperature)
@@ -120,12 +173,6 @@ private fun WeatherIcon(icon: String, size: Dp) {
         contentDescription = "Weather large icon",
         modifier = Modifier.size(size)
     )
-//    Image(
-//        painter = rememberAsyncImagePainter(icon),
-//        contentDescription = "Weather large icon",
-//        contentScale = ContentScale.Crop,
-//        modifier = Modifier.size(size)
-//    )
 }
 
 @Composable

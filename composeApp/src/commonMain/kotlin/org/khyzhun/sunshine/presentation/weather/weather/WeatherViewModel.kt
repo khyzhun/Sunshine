@@ -1,6 +1,7 @@
-package org.khyzhun.sunshine.presentation.weather
+package org.khyzhun.sunshine.presentation.weather.weather
 
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -13,13 +14,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import org.khyzhun.sunshine.core.base.BaseViewModel
+import org.khyzhun.sunshine.core.base.common.events.Callback
+import org.khyzhun.sunshine.core.base.common.events.Dialog
+import org.khyzhun.sunshine.core.base.common.events.Progress
+import org.khyzhun.sunshine.core.base.common.events.UiEvent
 import org.khyzhun.sunshine.data.model.CurrentWeatherResponse
 import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
 
-class WeatherViewModel : ViewModel() {
-
-    private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState())
-    val uiState = _uiState.asStateFlow()
+class WeatherViewModel : BaseViewModel<WeatherUiState, Progress, Dialog, Callback>() {
 
     private val httpClient = HttpClient {
         install(ContentNegotiation) {
@@ -36,8 +39,12 @@ class WeatherViewModel : ViewModel() {
         }
     }
 
-    init {
-        loadWeatherForecast()
+    override fun handleUiEvent(uiEvent: UiEvent) {
+        when (uiEvent) {
+            is WeatherUiEvent.LoadScreenData -> {
+                loadWeatherForecast()
+            }
+        }
     }
 
     override fun onCleared() {
@@ -45,22 +52,24 @@ class WeatherViewModel : ViewModel() {
     }
 
     private fun loadWeatherForecast() {
-        viewModelScope.launch {
+        launch {
             val weatherForecast = getWeatherForecast()
-            _uiState.update {
-                it.copy(
+            updateState { currentState ->
+                val forecast = weatherForecast.forecast?.map { forecast ->
+                    ForecastWeatherDomain(
+                        icon = forecast?.icon.toString(),
+                        day = forecast?.day.toString(),
+                        temperatureMax = forecast?.temperatureMax ?: 0,
+                        temperatureMin = forecast?.temperatureMin ?: 0
+                    )
+                }.orEmpty()
+
+                currentState.value = WeatherUiState(
                     city = weatherForecast.city.toString(),
                     icon = weatherForecast.icon.toString(),
                     description = weatherForecast.description.toString(),
                     temperature = weatherForecast.temperature ?: 0,
-                    forecast = weatherForecast.forecast?.map { forecast ->
-                        ForecastWeatherDomain(
-                            icon = forecast?.icon.toString(),
-                            day = forecast?.day.toString(),
-                            temperatureMax = forecast?.temperatureMax ?: 0,
-                            temperatureMin = forecast?.temperatureMin ?: 0
-                        )
-                    }.orEmpty()
+                    forecast = forecast
                 )
             }
         }

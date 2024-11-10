@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun AppTheme(
+internal fun SunshineTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(

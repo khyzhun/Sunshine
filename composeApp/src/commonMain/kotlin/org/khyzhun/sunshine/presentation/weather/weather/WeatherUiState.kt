@@ -1,5 +1,6 @@
-package org.khyzhun.sunshine.presentation.weather
+package org.khyzhun.sunshine.presentation.weather.weather
 
+import org.khyzhun.sunshine.core.base.common.state.UiState
 import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
 
 data class WeatherUiState(
@@ -8,4 +9,4 @@ data class WeatherUiState(
     val description: String = "",
     val temperature: Int = 0,
     val forecast: List<ForecastWeatherDomain> = emptyList(),
-)
+) : UiState
