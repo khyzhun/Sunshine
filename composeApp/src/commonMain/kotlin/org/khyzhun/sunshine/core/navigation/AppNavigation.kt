@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
+import org.khyzhun.sunshine.domain.repository.WeatherRepository
 import org.khyzhun.sunshine.presentation.weather.settings.SettingsScreen
 import org.khyzhun.sunshine.presentation.weather.settings.SettingsViewModel
 import org.khyzhun.sunshine.presentation.weather.weather.WeatherScreen
