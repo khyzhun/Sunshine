@@ -83,7 +83,7 @@ fun WeatherScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColors.SunnyBackground)
+            .background(AppColors.SunnyBackground) // TODO: handle background color depending on the weather.
             .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
