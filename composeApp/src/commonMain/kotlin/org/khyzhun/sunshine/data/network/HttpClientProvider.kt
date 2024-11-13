@@ -33,7 +33,7 @@ object HttpClientProvider {
                         Napier.d(tag = TAG, message = message)
                     }
                 }
-                level = LogLevel.ALL
+                level = LogLevel.BODY
             }
         }
     }

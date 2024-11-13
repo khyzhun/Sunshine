@@ -8,5 +8,6 @@ data class WeatherUiState(
     val icon: String = "",
     val description: String = "",
     val temperature: Int = 0,
+    val backgroundColor: String = "",
     val forecast: List<ForecastWeatherDomain> = emptyList(),
 ) : UiState

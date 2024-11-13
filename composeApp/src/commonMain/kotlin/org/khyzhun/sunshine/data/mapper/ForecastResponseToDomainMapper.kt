@@ -1,6 +1,6 @@
 package org.khyzhun.sunshine.data.mapper
 
-import org.khyzhun.sunshine.data.model.ForecastWeatherResponse
+import org.khyzhun.sunshine.data.model.response.ForecastWeatherResponse
 import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
 
 

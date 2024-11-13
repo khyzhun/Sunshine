@@ -42,6 +42,7 @@ import org.khyzhun.sunshine.core.base.common.events.UiEvent
 import org.khyzhun.sunshine.core.base.components.ToolbarPadding
 import org.khyzhun.sunshine.domain.model.ForecastWeatherDomain
 import org.khyzhun.sunshine.core.theme.AppColors
+import org.khyzhun.sunshine.utils.ColorUtils
 import org.khyzhun.sunshine.utils.DateUtils
 import sunshine.composeapp.generated.resources.Res
 import sunshine.composeapp.generated.resources.placeholder_degrees
@@ -83,7 +84,7 @@ fun WeatherScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColors.SunnyBackground) // TODO: handle background color depending on the weather.
+            .background(ColorUtils.parseColor(state.backgroundColor))
             .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)

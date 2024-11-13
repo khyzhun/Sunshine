@@ -12,7 +12,3 @@ fun SunshineAppView() {
         AppNavigation()
     }
 }
-
-expect fun getPlatformName(): String
-
-expect fun setupLogger()

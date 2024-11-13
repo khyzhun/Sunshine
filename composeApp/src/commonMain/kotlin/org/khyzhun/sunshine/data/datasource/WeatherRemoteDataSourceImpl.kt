@@ -3,7 +3,7 @@ package org.khyzhun.sunshine.data.datasource
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import org.khyzhun.sunshine.data.mapper.toDomain
-import org.khyzhun.sunshine.data.model.CurrentWeatherResponse
+import org.khyzhun.sunshine.data.model.response.CurrentWeatherResponse
 import org.khyzhun.sunshine.data.network.HttpClientProvider
 import org.khyzhun.sunshine.domain.datasource.WeatherRemoteDataSource
 import org.khyzhun.sunshine.domain.model.CurrentWeatherDomain

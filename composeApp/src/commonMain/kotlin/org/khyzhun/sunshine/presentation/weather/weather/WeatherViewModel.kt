@@ -12,7 +12,6 @@ class WeatherViewModel(
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
 ) : BaseViewModel<WeatherUiState, Progress, Dialog, Callback>() {
 
-
     override fun handleUiEvent(uiEvent: UiEvent) {
         when (uiEvent) {
             is WeatherUiEvent.LoadScreenData -> {
@@ -30,6 +29,7 @@ class WeatherViewModel(
                     icon = weatherForecast.icon,
                     description = weatherForecast.description,
                     temperature = weatherForecast.temperature,
+                    backgroundColor = weatherForecast.backgroundColor,
                     forecast = weatherForecast.forecast
                 )
             }
