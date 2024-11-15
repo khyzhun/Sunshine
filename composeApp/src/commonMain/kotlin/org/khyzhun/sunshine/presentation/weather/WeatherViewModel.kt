@@ -1,4 +1,4 @@
-package org.khyzhun.sunshine.presentation.weather.weather
+package org.khyzhun.sunshine.presentation.weather
 
 import org.khyzhun.sunshine.core.base.BaseViewModel
 import org.khyzhun.sunshine.core.base.common.events.Callback
@@ -9,7 +9,7 @@ import org.khyzhun.sunshine.data.repository.WeatherRepositoryImpl
 import org.khyzhun.sunshine.domain.repository.WeatherRepository
 
 class WeatherViewModel(
-    private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
+    private val weatherRepository: WeatherRepository
 ) : BaseViewModel<WeatherUiState, Progress, Dialog, Callback>() {
 
     override fun handleUiEvent(uiEvent: UiEvent) {

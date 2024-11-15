@@ -1,4 +1,4 @@
-package org.khyzhun.sunshine.presentation.weather.settings
+package org.khyzhun.sunshine.presentation.settings
 
 import org.khyzhun.sunshine.core.base.BaseViewModel
 import org.khyzhun.sunshine.core.base.common.events.Callback

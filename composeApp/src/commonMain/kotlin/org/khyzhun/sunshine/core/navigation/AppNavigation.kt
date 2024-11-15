@@ -6,13 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dev.icerock.moko.mvvm.compose.getViewModel
-import dev.icerock.moko.mvvm.compose.viewModelFactory
-import org.khyzhun.sunshine.domain.repository.WeatherRepository
-import org.khyzhun.sunshine.presentation.weather.settings.SettingsScreen
-import org.khyzhun.sunshine.presentation.weather.settings.SettingsViewModel
-import org.khyzhun.sunshine.presentation.weather.weather.WeatherScreen
-import org.khyzhun.sunshine.presentation.weather.weather.WeatherViewModel
+import org.khyzhun.sunshine.presentation.settings.SettingsScreen
+import org.khyzhun.sunshine.presentation.settings.SettingsViewModel
+import org.khyzhun.sunshine.presentation.weather.WeatherScreen
+import org.khyzhun.sunshine.presentation.weather.WeatherViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun AppNavigation(
@@ -26,18 +24,18 @@ fun AppNavigation(
         startDestination = startDestination,
     ) {
         composable(Routes.Weather.route) {
-            val mainViewModel = getViewModel(Unit, viewModelFactory { WeatherViewModel() })
+            val viewModel = koinViewModel<WeatherViewModel>()
             WeatherScreen(
-                viewModel = mainViewModel,
+                viewModel = viewModel,
                 onNavigateToSettings = {
                     navController.navigate(route = Routes.Settings.route)
                 }
             )
         }
         composable(Routes.Settings.route) {
-            val settingsViewModel = getViewModel(Unit, viewModelFactory { SettingsViewModel() })
+            val viewModel = koinViewModel<SettingsViewModel>()
             SettingsScreen(
-                viewModel = settingsViewModel,
+                viewModel = viewModel,
                 onNavigateBack = navController::popBackStack
             )
         }

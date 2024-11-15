@@ -6,6 +6,7 @@ struct iOSApp: App {
 
     init() {
         MainViewControllerKt.setupLogger()
+        MainViewControllerKt.initKoin()
     }
 
     var body: some Scene {

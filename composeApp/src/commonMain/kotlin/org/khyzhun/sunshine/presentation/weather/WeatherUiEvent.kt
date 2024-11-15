@@ -1,4 +1,4 @@
-package org.khyzhun.sunshine.presentation.weather.weather
+package org.khyzhun.sunshine.presentation.weather
 
 import org.khyzhun.sunshine.core.base.common.events.UiEvent
 
