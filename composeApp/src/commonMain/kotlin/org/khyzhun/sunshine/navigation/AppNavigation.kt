@@ -1,17 +1,17 @@
-package org.khyzhun.sunshine.core.navigation
+package org.khyzhun.sunshine.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dev.icerock.moko.mvvm.compose.getViewModel
-import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.khyzhun.sunshine.presentation.settings.SettingsScreen
 import org.khyzhun.sunshine.presentation.settings.SettingsViewModel
 import org.khyzhun.sunshine.presentation.weather.WeatherScreen
 import org.khyzhun.sunshine.presentation.weather.WeatherViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun AppNavigation(
@@ -25,8 +25,7 @@ fun AppNavigation(
         startDestination = startDestination,
     ) {
         composable(Routes.Weather.route) {
-            val viewModel = getViewModel(Unit, viewModelFactory { WeatherViewModel() })
-
+            val viewModel: WeatherViewModel = koinInject<WeatherViewModel>()
             WeatherScreen(
                 viewModel = viewModel,
                 onNavigateToSettings = {
@@ -35,7 +34,7 @@ fun AppNavigation(
             )
         }
         composable(Routes.Settings.route) {
-            val viewModel = getViewModel(Unit, viewModelFactory { SettingsViewModel() })
+            val viewModel: SettingsViewModel = koinInject<SettingsViewModel>()
             SettingsScreen(
                 viewModel = viewModel,
                 onNavigateBack = navController::popBackStack

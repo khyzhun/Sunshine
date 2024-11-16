@@ -3,6 +3,7 @@ package org.khyzhun.sunshine
 import org.khyzhun.sunshine.di.apiModule
 import org.khyzhun.sunshine.di.dataSourceModule
 import org.khyzhun.sunshine.di.repositoryModule
+import org.khyzhun.sunshine.di.viewModelModule
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 
@@ -17,5 +18,6 @@ actual fun appModule(): List<Module> {
         apiModule,
         dataSourceModule,
         repositoryModule,
+        viewModelModule
     )
 }

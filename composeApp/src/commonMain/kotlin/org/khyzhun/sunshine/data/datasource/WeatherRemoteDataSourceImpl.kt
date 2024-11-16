@@ -9,10 +9,11 @@ import org.khyzhun.sunshine.domain.datasource.WeatherRemoteDataSource
 import org.khyzhun.sunshine.domain.model.CurrentWeatherDomain
 
 class WeatherRemoteDataSourceImpl(
-    private val httpClient: HttpClientProvider = HttpClientProvider
+    private val httpClient: HttpClientProvider
 ) : WeatherRemoteDataSource {
 
-    private val requestUrl = "https://raw.githubusercontent.com/khyzhun/Sunshine-KMP/refs/heads/master/json/current_weather_response.json"
+    private val requestUrl =
+        "https://raw.githubusercontent.com/khyzhun/Sunshine-KMP/refs/heads/master/json/current_weather_response.json"
 
     override suspend fun getCurrentWeather(): CurrentWeatherDomain {
         val response = httpClient
