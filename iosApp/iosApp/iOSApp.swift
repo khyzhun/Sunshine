@@ -5,8 +5,8 @@ import ComposeApp
 struct iOSApp: App {
 
     init() {
-        MainViewControllerKt.setupLogger()
-        MainViewControllerKt.initKoin()
+        LoggerKt.setupLogger()
+        KoinKt.doInitKoin()
     }
 
     var body: some Scene {

@@ -19,12 +19,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-actual fun getPlatformName(): String = "Android"
-
-actual fun setupLogger() {
-    Napier.base(DebugAntilog())
-}
-
 @Preview
 @Composable
 fun AppAndroidPreview() {

@@ -5,11 +5,12 @@ import org.khyzhun.sunshine.core.base.common.events.Callback
 import org.khyzhun.sunshine.core.base.common.events.Dialog
 import org.khyzhun.sunshine.core.base.common.events.Progress
 import org.khyzhun.sunshine.core.base.common.events.UiEvent
+import org.khyzhun.sunshine.data.datasource.WeatherRemoteDataSourceImpl
 import org.khyzhun.sunshine.data.repository.WeatherRepositoryImpl
 import org.khyzhun.sunshine.domain.repository.WeatherRepository
 
 class WeatherViewModel(
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
 ) : BaseViewModel<WeatherUiState, Progress, Dialog, Callback>() {
 
     override fun handleUiEvent(uiEvent: UiEvent) {

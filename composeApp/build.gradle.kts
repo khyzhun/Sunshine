@@ -39,7 +39,6 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
 
             implementation(libs.koin.android)
-            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -70,9 +69,8 @@ kotlin {
 
             implementation(libs.kamel.image.default)
 
-            api(libs.koin.core)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.core)
+            implementation(libs.koin.test)
 
             implementation(libs.mvvm.core)
             implementation(libs.mvvm.compose)

@@ -1,11 +1,12 @@
 package org.khyzhun.sunshine.data.repository
 
+import org.khyzhun.sunshine.data.datasource.WeatherRemoteDataSourceImpl
 import org.khyzhun.sunshine.domain.datasource.WeatherRemoteDataSource
 import org.khyzhun.sunshine.domain.model.CurrentWeatherDomain
 import org.khyzhun.sunshine.domain.repository.WeatherRepository
 
 class WeatherRepositoryImpl(
-    private val weatherRemoteDataSource: WeatherRemoteDataSource
+    private val weatherRemoteDataSource: WeatherRemoteDataSource = WeatherRemoteDataSourceImpl()
 ) : WeatherRepository {
 
     override suspend fun getCurrentWeather(): CurrentWeatherDomain {
