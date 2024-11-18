@@ -6,4 +6,10 @@ sealed class SettingsUiEvent : UiEvent {
 
     data object LoadScreenData : SettingsUiEvent()
 
+    data class UpdateLocation(val location: String) : SettingsUiEvent()
+
+    data class UpdateTheme(val isDarkTheme: Boolean) : SettingsUiEvent()
+
+    data class UpdateTemperatureUnit(val isCelsius: Boolean) : SettingsUiEvent()
+
 }

@@ -13,12 +13,39 @@ class SettingsViewModel : BaseViewModel<SettingsUiState, Progress, Dialog, Callb
             is SettingsUiEvent.LoadScreenData -> {
                 loadSettings()
             }
+            is SettingsUiEvent.UpdateLocation -> {
+                updateLocation(uiEvent.location)
+            }
+            is SettingsUiEvent.UpdateTheme -> {
+                updateTheme(uiEvent.isDarkTheme)
+            }
+            is SettingsUiEvent.UpdateTemperatureUnit -> {
+                updateTemperatureUnit(uiEvent.isCelsius)
+            }
         }
     }
 
     private fun loadSettings() {
         updateState { state ->
-            state.value = SettingsUiState(something = true)
+            state.value = SettingsUiState()
+        }
+    }
+
+    private fun updateTheme(darkTheme: Boolean) {
+        updateState { state ->
+            state.value = state.value?.copy(isDarkTheme = darkTheme)
+        }
+    }
+
+    private fun updateLocation(location: String) {
+        updateState { state ->
+            state.value = state.value?.copy(location = location)
+        }
+    }
+
+    private fun updateTemperatureUnit(celsius: Boolean) {
+        updateState { state ->
+            state.value = state.value?.copy(isCelsius = celsius)
         }
     }
 }
