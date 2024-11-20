@@ -39,7 +39,6 @@ import kotlinx.coroutines.launch
 import org.khyzhun.sunshine.core.base.BaseContentLayout
 import org.khyzhun.sunshine.core.base.components.ToolbarPadding
 import org.khyzhun.sunshine.core.theme.AppColors
-import sunshine.composeapp.generated.resources.Res
 
 @Composable
 fun SettingsScreen(
@@ -165,15 +164,15 @@ fun LocationField(location: String, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(8.dp),
+            .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = location.ifEmpty { "Enter location" },
+            color = Color.White,
             modifier = Modifier.weight(1f)
         )
-        Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit Location")
+        Icon(imageVector = Icons.Default.Edit, tint = Color.White, contentDescription = "Edit Location")
     }
 }
 
@@ -183,7 +182,14 @@ fun SettingSwitch(label: String, isChecked: Boolean, onCheckedChange: (Boolean) 
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = label, modifier = Modifier.weight(1f))
-        Switch(checked = isChecked, onCheckedChange = onCheckedChange)
+        Text(
+            text = label,
+            color = Color.White,
+            modifier = Modifier.weight(1f)
+        )
+        Switch(
+            checked = isChecked,
+            onCheckedChange = onCheckedChange
+        )
     }
 }
