@@ -6,6 +6,13 @@
     <string name="snowy">Snowy</string>
     <string name="sunny">Sunny</string>
 
+    <string name="dark_theme">Dark theme</string>
+    <string name="celsius">Celsius</string>
+    <string name="enter_location">Enter location</string>
+    <string name="enter_your_location">Enter your location...</string>
+    <string name="save">Save</string>
+
+
 
     <string name="placeholder_degrees">%1$d°</string>
     <string name="placeholder_degrees_max_min">%1$d°/%2$d°</string>
